@@ -1,6 +1,5 @@
 
 def main():
-    commonChild = commonChildA1
     tests = [(('HARRY','SALLY'),2),
              (('AA','BB'),0),
              (('SHINCHAN','NOHARAAA'),3),
@@ -77,5 +76,15 @@ def commonChildA1(s1, s2):
 
     return dpmf[pair_string(s1,s2)]
         
+def commonChild(s1, s2):
+    A = [[0]*(len(s2)+1) for _ in range(len(s1)+1)]
+    for r in range(1,len(s1)+1):
+        for c in range(1,len(s2)+1):
+            if s1[r-1] == s2[c-1]:
+                A[r][c] = A[r-1][c-1]+1
+            else:
+                A[r][c] = max(A[r-1][c],A[r][c-1])
+
+    return A[-1][-1]
 
 if __name__ == '__main__': main()
